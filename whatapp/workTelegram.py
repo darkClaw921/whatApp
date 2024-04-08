@@ -101,7 +101,8 @@ async def new_message_listener(event:events.newmessage.NewMessage.Event):
 # Запустите прослушивание новых сообщений
 print('[OK]')
 while True:
-    try:
-        client.run_until_disconnected()
-    except:
-        print('Повоторный запуск')
+    # try:
+    client.run_until_disconnected()
+    
+    # except:
+        # print('Повоторный запуск')
