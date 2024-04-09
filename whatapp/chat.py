@@ -28,12 +28,14 @@ from langchain_core.messages import HumanMessage, AIMessage
 
 from langchain.schema import HumanMessage, SystemMessage
 from langchain_community.chat_models import ChatYandexGPT
+from tokenGenerate import get_iam_token
 
 key = os.environ.get('OPENAI_API_KEY')
-YC_IAM_TOKEN = os.environ.get('YC_IAM_TOKEN')
+# YC_IAM_TOKEN = os.environ.get('YC_IAM_TOKEN')
 client = OpenAI(api_key=key,)
-
-chat_model = ChatYandexGPT(folder_id='b1g83bovl5hjt7cl583v', model_uri='gpt://b1g83bovl5hjt7cl583v/yandexgpt')       
+YC_IAM_TOKEN = get_iam_token()
+# chat_model = ChatYandexGPT(folder_id='b1g83bovl5hjt7cl583v', model_uri='gpt://b1g83bovl5hjt7cl583v/yandexgpt')       
+chat_model = ChatYandexGPT(folder_id='b1gt5t65m4lcof8iumpj', model_uri='gpt://b1gt5t65m4lcof8iumpj/yandexgpt')       
 
 
 class bcolors:
@@ -310,8 +312,12 @@ class GPT():
         historyPrepare.append(HumanMessage(i['content']))
       if i['role'] == 'system':
         historyPrepare.append(SystemMessage(i['content']))
-        
-    answer = chat_model(historyPrepare)
+    try: 
+      answer = chat_model(historyPrepare)
+    except:
+       YC_IAM_TOKEN = get_iam_token()
+       chat_model.iam_token=get_iam_token()
+       answer = chat_model(historyPrepare)
     # return answer
     # pprint(answer.content)
     # pprint(answer.usage)
