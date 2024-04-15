@@ -34,6 +34,9 @@ chenalName = [ -1001957850642,
 async def new_message_listener(event:events.newmessage.NewMessage.Event):
     # Обработка новых сообщений
     messageID=event.message.id
+    chenalID=event.message.chat.id
+    print(f'{chenalID=}') 
+    # pprint
     # try:
     pprint(event.message.chat.__dict__)
     print(type(event))

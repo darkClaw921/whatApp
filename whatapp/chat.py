@@ -34,6 +34,7 @@ key = os.environ.get('OPENAI_API_KEY')
 # YC_IAM_TOKEN = os.environ.get('YC_IAM_TOKEN')
 client = OpenAI(api_key=key,)
 YC_IAM_TOKEN = get_iam_token()
+os.environ.setdefault('YC_IAM_TOKEN',YC_IAM_TOKEN)
 # chat_model = ChatYandexGPT(folder_id='b1g83bovl5hjt7cl583v', model_uri='gpt://b1g83bovl5hjt7cl583v/yandexgpt')       
 chat_model = ChatYandexGPT(folder_id='b1gt5t65m4lcof8iumpj', model_uri='gpt://b1gt5t65m4lcof8iumpj/yandexgpt')       
 
@@ -305,6 +306,8 @@ class GPT():
       #{"role": "user", "content": topic}
       #{"role": "user", "content": context}
       ]
+    YC_IAM_TOKEN = get_iam_token()
+    os.environ.setdefault('YC_IAM_TOKEN',YC_IAM_TOKEN)
     messages.extend(history) 
     historyPrepare = []
     for i in messages:
@@ -315,7 +318,7 @@ class GPT():
     try: 
       answer = chat_model(historyPrepare)
     except:
-       YC_IAM_TOKEN = get_iam_token()
+      #  YC_IAM_TOKEN = get_iam_token()
        chat_model.iam_token=get_iam_token()
        answer = chat_model(historyPrepare)
     # return answer
