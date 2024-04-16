@@ -27,7 +27,7 @@ async def check_message(Message):
     print(f'{answerText=}')
     
     answerText=answerText.lower() 
-    if answerText=='1' or answerText.find('запрос клиента')!=-1:
+    if answerText=='1' or answerText.find('запрос')!=-1:
         print('создаем лид из ответа')
         # lead= await find_lead(f'{Message.userID}')
         # print(f'aaaaaaaaaaaaaaaa')
