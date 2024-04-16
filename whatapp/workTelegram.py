@@ -39,6 +39,7 @@ async def new_message_listener(event:events.newmessage.NewMessage.Event):
     # pprint
     # try:
     pprint(event.message.chat.__dict__)
+    pprint(event.message.chat.__dict__['_sender'])
     print(type(event))
     chenalID=event.message.chat.id
 
@@ -60,8 +61,11 @@ async def new_message_listener(event:events.newmessage.NewMessage.Event):
         photos.append(filePath)
 
     userSendID=event.message.from_id.user_id
+    
     try:
-        userSendNickname=event.message.sender.username
+        userSendNickname=event.message.chat.__dict__['_sender']['username']
+        # userSendNickname=event.message.sender.username
+
     except:
         userSendNickname=None
     if userSendNickname is None:
