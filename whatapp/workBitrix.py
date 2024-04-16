@@ -21,6 +21,7 @@ class Lead:
     photos:str='UF_CRM_1709223951925'
     urlUser:str='UF_CRM_1709224894080'
     messageURL:str='UF_CRM_1709293438392'
+    source:str='SOURCE_ID'
 
     # userID:str='UF_CRM_1709231051797'
     # photos:str='UF_CRM_1709231043105'
@@ -86,7 +87,7 @@ async def create_lead(Message:Message, isNeedCreate:bool=False,lead=None):
         Lead.description: description,
         Lead.urlUser: f'https://t.me/{userName}', #TODO добавить ссылку на пользователя на уровень выше
         Lead.messageURL: Message.messageURL,
-        
+        Lead.source:'UC_FM0664', 
     }}
     # pprint(param)
     # pprint(uploadFiles)
