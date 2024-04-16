@@ -26,7 +26,8 @@ async def check_message(Message):
     answerText=gpt.answer_yandex(promt, historyList, 0)[0]
     print(f'{answerText=}')
     
-    if answerText=='1':
+    answerText=answerText.lower() 
+    if answerText=='1' or answerText.find('запрос клиента'):
         print('создаем лид из ответа')
         # lead= await find_lead(f'{Message.userID}')
         # print(f'aaaaaaaaaaaaaaaa')
