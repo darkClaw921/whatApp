@@ -84,7 +84,7 @@ async def create_lead(Message:Message, isNeedCreate:bool=False,lead=None):
         Lead.userID: Message.userID,
         Lead.photos: uploadFiles if uploadFiles !=[] else None,
         Lead.description: description,
-        # Lead.urlUser: f'https://t.me/{userName}', #TODO добавить ссылку на пользователя на уровень выше
+        Lead.urlUser: f'https://t.me/{userName}', #TODO добавить ссылку на пользователя на уровень выше
         Lead.messageURL: Message.messageURL,
         
     }}
