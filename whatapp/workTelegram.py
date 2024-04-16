@@ -39,7 +39,7 @@ async def new_message_listener(event:events.newmessage.NewMessage.Event):
     # pprint
     # try:
     pprint(event.message.chat.__dict__)
-    pprint(event.message.__dict__['_sender'])
+    pprint(event.message.__dict__['_sender'].__dict__)
     print(type(event))
     chenalID=event.message.chat.id
 
@@ -63,7 +63,7 @@ async def new_message_listener(event:events.newmessage.NewMessage.Event):
     userSendID=event.message.from_id.user_id
     
     try:
-        userSendNickname=event.message.__dict__['_sender']['username']
+        userSendNickname=event.message.__dict__['_sender'].__dict__['username']
         # userSendNickname=event.message.sender.username
 
     except:
