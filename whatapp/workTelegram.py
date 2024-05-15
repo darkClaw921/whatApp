@@ -91,10 +91,26 @@ async def new_message_listener(event:events.newmessage.NewMessage.Event):
         answer=await check_message(msg)
         print(f'{answer=}')
         # await client.send_message(-1001957850642, message=f'ответ yandex: {answer}',reply_to=event.message)
-        
+
         for filePath in photos:
             os.remove(filePath)
 
+        promt="""Я отправляю тебе объявление клиента. Он ищет локацию для съемки. Мне надо понять, заполнены ли в нем следующие реквизиты:
+- даты съёмки 
+- количество смен
+- что снимается
+- количество людей
+- бюджет
+
+Мне нужен ТОЛЬКО список того, что не заполнено.
+НЕ ПИШИ что это список. Отправь ТОЛЬКО список того, что надо заполнить"""
+        historyList = [
+            {'role': 'user', 'content': text},]
+        print(f'{historyList=}')
+        answerText=gpt.answer_yandex(promt, historyList, 0)[0]
+        print(f'{answerText=}')
+
+        await client.send_message(400923372, message=answerText)
     # if chenalID == 2010911633:
         # await client.send_message(-1002010911633, message=answer,reply_to=event.message)
 
