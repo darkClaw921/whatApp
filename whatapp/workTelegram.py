@@ -94,7 +94,8 @@ async def new_message_listener(event:events.newmessage.NewMessage.Event):
 
         for filePath in photos:
             os.remove(filePath)
-
+        if answer=='0':
+            return 0
         promt="""Я отправляю тебе объявление клиента. Он ищет локацию для съемки. Мне надо понять, заполнены ли в нем следующие реквизиты:
 - даты съёмки 
 - количество смен
@@ -104,6 +105,8 @@ async def new_message_listener(event:events.newmessage.NewMessage.Event):
 
 Мне нужен ТОЛЬКО список того, что не заполнено.
 НЕ ПИШИ что это список. Отправь ТОЛЬКО список того, что надо заполнить"""
+
+        promt = gpt.load_prompt('https://docs.google.com/document/d/1KCl8vHujZIiMX87M3g0ZhcbsYHBukvjQNWYH8DsQaoU/edit?usp=sharing')
         historyList = [
             {'role': 'user', 'content': text},]
         print(f'{historyList=}')

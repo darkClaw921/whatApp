@@ -38,7 +38,7 @@ async def check_message(Message):
         #     await create_lead(Message, lead=lead)
     
         return answerText
-    return answerText
+    return '0'
     # if answerText.find('ТВОЙ ОТВЕТ:') == -1:
     #     return '0'
     # else:
