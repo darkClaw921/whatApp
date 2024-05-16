@@ -308,6 +308,7 @@ class GPT():
       ]
     chat_model = ChatYandexGPT(folder_id='b1gt5t65m4lcof8iumpj', 
                                model_uri='gpt://b1gt5t65m4lcof8iumpj/yandexgpt',
+                               temperature=0,
                                iam_token=get_iam_token())       
     # YC_IAM_TOKEN = get_iam_token()
     # os.environ.setdefault('YC_IAM_TOKEN',YC_IAM_TOKEN)
