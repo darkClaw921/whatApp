@@ -112,8 +112,9 @@ async def new_message_listener(event:events.newmessage.NewMessage.Event):
         print(f'{historyList=}')
         answerText=gpt.answer_yandex(promt, historyList, 0)[0]
         print(f'{answerText=}')
-
-        await client.send_message(400923372, message=answerText+'\n\nВаше сообщение в чате: \n'+text)
+        
+        # await client.send_message(400923372, message=answerText+'\n\nВаше сообщение в чате: \n'+text)
+        await client.send_message(userSendID, message=answerText+'\n\nВаше сообщение в чате: \n'+text)
     # if chenalID == 2010911633:
         # await client.send_message(-1002010911633, message=answer,reply_to=event.message)
 
