@@ -30,11 +30,19 @@ chenalName = [ -1001957850642,
               -1001279459673] 
 # @client.on(events.NewMessage())
 # @client.on(events.NewMessage(chats=lambda x: x in chenalName))
+def check_nickname_for_message(text:str):
+    if text is None:
+        return None
+    if text.find('@')==-1:
+        return None
+    return text[text.find('@')+1:]
+
 @client.on(events.NewMessage(chats=chenalName))
 async def new_message_listener(event:events.newmessage.NewMessage.Event):
     # Обработка новых сообщений
     messageID=event.message.id
     chenalID=event.message.chat.id
+
     print(f'{chenalID=}') 
     # pprint
     # try:
@@ -112,7 +120,9 @@ async def new_message_listener(event:events.newmessage.NewMessage.Event):
         print(f'{historyList=}')
         answerText=gpt.answer_yandex(promt, historyList, 0)[0]
         print(f'{answerText=}')
-        
+        if check_nickname_for_message(text) is not None:
+            userSendID=check_nickname_for_message(text)
+            
         # await client.send_message(400923372, message=answerText+'\n\nВаше сообщение в чате: \n'+text)
         await client.send_message(userSendID, message=answerText+'\n\nВаше сообщение в чате: \n'+text)
     # if chenalID == 2010911633:
