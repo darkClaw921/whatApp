@@ -28,6 +28,7 @@ client.start()
 #см Разработка бота Афиша/ tg источники
 chenalName = [ -1001957850642,
               -1001279459673] 
+USERS={}
 # @client.on(events.NewMessage())
 # @client.on(events.NewMessage(chats=lambda x: x in chenalName))
 def check_nickname_for_message(text:str):
@@ -46,8 +47,8 @@ async def new_message_listener(event:events.newmessage.NewMessage.Event):
     print(f'{chenalID=}') 
     # pprint
     # try:
-    pprint(event.message.chat.__dict__)
-    pprint(event.message.__dict__['_sender'].__dict__)
+    # pprint(event.message.chat.__dict__)
+    # pprint(event.message.__dict__['_sender'].__dict__)
     print(type(event))
     chenalID=event.message.chat.id
 
@@ -77,7 +78,7 @@ async def new_message_listener(event:events.newmessage.NewMessage.Event):
     except:
         userSendNickname=None
     if userSendNickname is None:
-        pprint(event.message.__dict__)
+        # pprint(event.message.__dict__)
         userSendNickname=str(userSendID)
 
     print(f'{userSendID=}')
@@ -117,14 +118,25 @@ async def new_message_listener(event:events.newmessage.NewMessage.Event):
         promt = gpt.load_prompt('https://docs.google.com/document/d/1KCl8vHujZIiMX87M3g0ZhcbsYHBukvjQNWYH8DsQaoU/edit?usp=sharing')
         historyList = [
             {'role': 'user', 'content': text},]
-        print(f'{historyList=}')
+        # print(f'{historyList=}')
+        
+        
+
         answerText=gpt.answer_yandex(promt, historyList, 0)[0]
-        print(f'{answerText=}')
+        print(f'отправляем: {answerText=}')
+        
         if check_nickname_for_message(text) is not None:
             userSendID=check_nickname_for_message(text)
             
+        if userSendID in USERS and (datetime.now()-USERS[userSendID]).seconds<=86400:
+            return 0
+        else:
+            if len(USERS)>20:
+                USERS.remove(0)
+            
+            USERS[userSendID]=datetime.now()
         # await client.send_message(400923372, message=answerText+'\n\nВаше сообщение в чате: \n'+text)
-        await client.send_message(userSendID, message=answerText+'\n\nВаше сообщение в чате: \n'+text)
+            await client.send_message(userSendID, message=answerText+'\n\nВаше сообщение в чате: \n'+text)
     # if chenalID == 2010911633:
         # await client.send_message(-1002010911633, message=answer,reply_to=event.message)
 
