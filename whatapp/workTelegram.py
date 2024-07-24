@@ -123,7 +123,7 @@ async def new_message_listener(event:events.newmessage.NewMessage.Event):
         
 
         answerText=gpt.answer_yandex(promt, historyList, 0)[0]
-        print(f'отправляем: {answerText=}')
+        
         
         if check_nickname_for_message(text) is not None:
             userSendID=check_nickname_for_message(text)
@@ -137,6 +137,7 @@ async def new_message_listener(event:events.newmessage.NewMessage.Event):
             
             USERS[userSendID]=datetime.now()
         # await client.send_message(400923372, message=answerText+'\n\nВаше сообщение в чате: \n'+text)
+            print(f'отправляем:{userSendID} => {answerText=}')
             await client.send_message(userSendID, message=answerText+'\n\nВаше сообщение в чате: \n'+text)
     # if chenalID == 2010911633:
         # await client.send_message(-1002010911633, message=answer,reply_to=event.message)
