@@ -127,7 +127,8 @@ async def new_message_listener(event:events.newmessage.NewMessage.Event):
         
         if check_nickname_for_message(text) is not None:
             userSendID=check_nickname_for_message(text)
-            
+
+        pprint(USERS)    
         if userSendID in USERS and (datetime.now()-USERS[userSendID]).seconds<=86400:
             return 0
         else:
