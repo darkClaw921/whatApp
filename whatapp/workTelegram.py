@@ -148,7 +148,14 @@ async def new_message_listener(event:events.newmessage.NewMessage.Event):
             return 0
         else:
             if len(USERS)>20:
-                USERS.remove(0)
+                # USERS=USERS[1:]
+                # Удаляем первый элемент
+                try:
+                    first_key = next(iter(USERS))  # Получаем первый ключ
+                    USERS.pop(first_key)  # Удаляем элемент по этому ключу
+                except Exception as e:
+                    print(f'{e=}')
+                # USERS.remove(0)
             
             USERS[userSendID]=datetime.now()
         # await client.send_message(400923372, message=answerText+'\n\nВаше сообщение в чате: \n'+text)
